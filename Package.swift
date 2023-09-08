@@ -7,28 +7,16 @@ let package = Package(
     platforms: [.iOS(.v16), .macOS(.v13), .tvOS(.v16), .watchOS(.v9), .macCatalyst(.v16)],
     products: [
     .library(name: "SkipMark", targets: ["SkipMark"]),
-    .library(name: "SkipMarkKt", targets: ["SkipMarkKt"]),
     ],
     dependencies: [
-        .package(url: "https://source.skip.tools/skip.git", from: "0.6.4"),
-        .package(url: "https://source.skip.tools/skip-unit.git", from: "0.1.0"),
-        .package(url: "https://source.skip.tools/skip-lib.git", from: "0.2.0"),
-        .package(url: "https://source.skip.tools/skip-foundation.git", from: "0.0.14"),
+        .package(url: "https://source.skip.tools/skip.git", from: "0.6.57"),
+        .package(url: "https://source.skip.tools/skip-foundation.git", from: "0.1.16"),
     ],
     targets: [
-    .target(name: "SkipMark", plugins: [.plugin(name: "skippy", package: "skip")]),
-    .target(name: "SkipMarkKt", dependencies: [
-        "SkipMark",
-        .product(name: "SkipUnitKt", package: "skip-unit"),
-        .product(name: "SkipLibKt", package: "skip-lib"),
-        .product(name: "SkipFoundationKt", package: "skip-foundation"),
-    ], resources: [.process("Skip")], plugins: [.plugin(name: "transpile", package: "skip")]),
+    .target(name: "SkipMark", dependencies: [.product(name: "SkipFoundation", package: "skip-foundation", condition: .when(platforms: [.macOS]))], plugins: [.plugin(name: "skipstone", package: "skip")]),
     .testTarget(name: "SkipMarkTests", dependencies: [
-        "SkipMark"
-    ], plugins: [.plugin(name: "skippy", package: "skip")]),
-    .testTarget(name: "SkipMarkKtTests", dependencies: [
-        "SkipMarkKt",
-        .product(name: "SkipUnit", package: "skip-unit"),
-    ], resources: [.process("Skip")], plugins: [.plugin(name: "transpile", package: "skip")]),
+        "SkipMark",
+        .product(name: "SkipTest", package: "skip", condition: .when(platforms: [.macOS]))
+    ], plugins: [.plugin(name: "skipstone", package: "skip")]),
     ]
 )
