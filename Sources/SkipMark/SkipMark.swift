@@ -21,4 +21,9 @@ public class CMark {
     public func cmark_version() -> Int32 {
         cmark_gfm.cmark_version()
     }
+
+    // SKIP EXTERN
+    public func cmark_markdown_to_html(_ text: String, _ len: Int, _ options: Int32) -> String {
+        String(cString: cmark_gfm.cmark_markdown_to_html(text, len, options))
+    }
 }
