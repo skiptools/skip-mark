@@ -1,5 +1,11 @@
 # Configuration file for https://skip.tools project
 
+build:
+  contents:
+    - block: 'dependencies'
+      contents:
+        - 'implementation("skip.cmark:skip-cmark") { version { branch = "gfm" } }'
+
 settings:
   contents:
     - block: 'sourceControl'
