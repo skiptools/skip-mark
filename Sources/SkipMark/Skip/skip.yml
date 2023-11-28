@@ -1,1 +1,10 @@
 # Configuration file for https://skip.tools project
+
+settings:
+  contents:
+    - block: 'sourceControl'
+      contents:
+        - block: 'gitRepository(uri("https://source.skip.tools/skip-cmark.git"))'
+          contents:
+            - 'producesModule("skip.cmark:skip-cmark")'
+
