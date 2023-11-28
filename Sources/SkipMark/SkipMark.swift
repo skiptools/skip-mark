@@ -26,4 +26,43 @@ public class CMark {
     public func cmark_markdown_to_html(_ text: String, _ len: Int, _ options: Int32) -> String {
         String(cString: cmark_gfm.cmark_markdown_to_html(text, len, options))
     }
+
+//    // SKIP EXTERN
+//    public func cmark_parse_document(_ buffer: String, _ len: Int, _ options: Int32) -> cmark_node_ptr? {
+//        cmark_gfm.cmark_parse_document(buffer, len, options)
+//    }
+
+    // SKIP EXTERN
+    public func cmark_isspace(_ c: CChar) -> Int32 {
+        cmark_gfm.cmark_isspace(c)
+    }
+
+    // SKIP EXTERN
+    public func cmark_ispunct(_ c: CChar) -> Int32 {
+        cmark_gfm.cmark_ispunct(c)
+    }
+
+    // SKIP EXTERN
+    public func cmark_isalnum(_ c: CChar) -> Int32 {
+        cmark_gfm.cmark_isalnum(c)
+    }
+
+    // SKIP EXTERN
+    public func cmark_isdigit(_ c: CChar) -> Int32 {
+        cmark_gfm.cmark_isdigit(c)
+    }
+
+    // SKIP EXTERN
+    public func cmark_isalpha(_ c: CChar) -> Int32 {
+        cmark_gfm.cmark_isalpha(c)
+    }
 }
+
+#if !SKIP
+public typealias cmark_node_ptr = UnsafeMutablePointer<cmark_node>
+#else
+public class cmark_node_ptr : com.sun.jna.Structure {
+    public init() {
+    }
+}
+#endif

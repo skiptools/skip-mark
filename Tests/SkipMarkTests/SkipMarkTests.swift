@@ -16,6 +16,12 @@ final class SkipMarkTests: XCTestCase {
         let cmark = CMark()
         XCTAssertEqual(1900544, cmark.cmark_version())
 
+        XCTAssertEqual(0, cmark.cmark_isspace(CChar(0x01)))
+        XCTAssertEqual(1, cmark.cmark_isspace(CChar(0x20))) // space
+        XCTAssertEqual(1, cmark.cmark_ispunct(CChar(0x21))) // exclamation
+        XCTAssertEqual(1, cmark.cmark_isalnum(CChar(0x30))) // 0
+        XCTAssertEqual(1, cmark.cmark_isalpha(CChar(0x7A))) // z
+
         do {
             let md = "```somecode```"
             XCTAssertEqual("<p><code>somecode</code></p>\n", cmark.cmark_markdown_to_html(md, md.count, 0))
@@ -49,6 +55,8 @@ final class SkipMarkTests: XCTestCase {
         do {
             let md = "**This is bold text**"
             XCTAssertEqual("<p><strong>This is bold text</strong></p>\n", cmark.cmark_markdown_to_html(md, md.count, 0))
+
+            //XCTAssertNotNil(cmark.cmark_parse_document(md, md.count, 0))
         }
     }
 }
