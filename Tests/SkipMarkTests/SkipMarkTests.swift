@@ -13,8 +13,8 @@ let logger: Logger = Logger(subsystem: "SkipMark", category: "Tests")
 @available(macOS 13, macCatalyst 16, iOS 16, tvOS 16, watchOS 8, *)
 final class SkipMarkTests: XCTestCase {
     func testSkipMark() throws {
-        let cmark = CMark()
-        XCTAssertEqual(1900544, cmark.cmark_version())
+        let cmark = CMarkLibrary.instance
+        XCTAssertEqual(1900557, cmark.cmark_version())
 
         XCTAssertEqual(0, cmark.cmark_isspace(CChar(0x01)))
         XCTAssertEqual(1, cmark.cmark_isspace(CChar(0x20))) // space
